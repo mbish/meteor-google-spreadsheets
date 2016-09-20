@@ -1,8 +1,8 @@
 Package.describe({
   summary: "Google Spreadsheets",
-  name: "ongoworks:google-spreadsheets",
-  version: "0.5.1",
-  git: "https://github.com/ongoworks/meteor-google-spreadsheets"
+  name: "mbish:google-spreadsheets",
+  version: "0.5.2",
+  git: "https://github.com/mbish/meteor-google-spreadsheets"
 });
 
 Npm.depends({

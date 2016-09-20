@@ -4,7 +4,7 @@ meteor-google-spreadsheets
 Google Spreadsheets for Meteor
 
 ```
-meteor add ongoworks:google-spreadsheets
+meteor add mbish:google-spreadsheets
 ```
 
 ## Option 1

@@ -17,6 +17,7 @@ Meteor.methods({
     check(worksheet, Match.Optional(String))
     check(range, Match.Optional(String))
     check(headerRow, Match.Optional(Number))
+
     if (!worksheet) worksheet = 0;
     var fut = new Future(); //don't return until we're done importing
     GoogleSpreadsheets({
@@ -27,6 +28,7 @@ Meteor.methods({
           fut.return(false);
           return;
         }
+        var worksheet_title = spreadsheet.worksheets[worksheet].title;
         spreadsheet.worksheets[worksheet].cells({
             range: range
         }, Meteor.bindEnvironment( function(err, cells) {
@@ -37,8 +39,8 @@ Meteor.methods({
             delete cells.cells[headerRow];
           }
           data = cells.cells;
-          var result = GASpreadsheet.upsert({spreadsheet: spreadsheet.title}, {$set:{header: header, cells: data}});
-          fut.return(GASpreadsheet.findOne({spreadsheet: spreadsheet.title}, {fields: {_id: 1}})._id);
+          var result = GASpreadsheet.upsert({spreadsheet: spreadsheet.title, worksheet: worksheet_title}, {$set:{header: header, cells: data}});
+          fut.return(GASpreadsheet.findOne({spreadsheet: spreadsheet.title, worksheet: worksheet_title}, {fields: {_id: 1}})._id);
         }));
     }));
     return fut.wait();
